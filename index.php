@@ -11,7 +11,8 @@
         <input type="text"name="first_name"placeholder="First_Name">
         <input type="text"name="second_name"placeholder="Second_Name">
         <button type="submit"name="submit">send</button>
-        <h2><?php
+        <h2>
+            <?php
                 if(isset($_POST['submit']))
                 {
                     $first_name = $_POST['first_name'];
