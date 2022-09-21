@@ -1,60 +1,35 @@
 <?php
-    if(isset($_POST['submit']))
-    {
-        $first = $_POST['first_name'];
-        $last =  $_POST['last_name'];
-        $mobile = $_POST['mobile'];
+    $server = 'localhost';
+    $user = 'root';
+    $dbname = 'dev_8';
+    $pass = '';
 
-        echo "<h2>Success</h2>"; 
-    }
-?>
-
-<?php
-    $servername = "localhost";
-    $dbname = "dev_8";
-    $username = "root";
-    $password = "";
-?>
-
-<?php
-  $form = new create($servername, $dbname, $username, $password);
-  if(isset($_POST['submit']))
-  {
-      $first_name = $_POST['first_name'];
-      $last_name = $_POST['last_name'];
-      $mobile = $_POST['mobile'];
-
-      $form->adddata($first_name, $last_name, $mobile);
-
-  }
-?>
-
-<?php
     class create
     {
-        public $conxn;
-        
-        public function __construct($servername, $dbname, $username, $password)
+        public $conn;
+        public function __construct($server,$user,$dbname,$pass)
         {
-            $this->conxn = new PDO("mysql:host=$servername;dbname=$dbname",$username,$password);
+            $this->conn = new PDO("mysql:host=$server;dbname=$dbname",$user,$pass);
         }
-
-        public function adddata($first_name, $last_name, $mobile)
+        public function adddata($first_name,$last_name,$mobile)
         {
-            $query = "INSERT INTO `create_form` VALUES (NULL, ?, ?, ?)";
-            $statment = $this->conxn->prepare($query);
-            $statment->execute([$first_name, $last_name, $mobile]);
-        
-        
+            $sql = "INSERT INTO create_form(first_name,last_name,mobile) VALUES (?,?,?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$first_name,$last_name,$mobile]);
         }
     }
+    $inter = new create($server,$user,$dbname,$pass);
+    if(isset($_POST['submit']))
+    {
+        $first_name = $_POST['first_name'];
+        $last_name = $_POST['last_name'];
+        $mobile = $_POST['mobile'];
+
+        $inter->adddata($first_name,$last_name,$mobile);
+    }
+    
+   
 ?>
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
