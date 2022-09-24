@@ -4,6 +4,8 @@
     $dbname = 'dev_8';
     $pass = '';
 
+    echo "succesefully";
+
     class create
     {
         public $conn;
